@@ -35,8 +35,8 @@ import com.google.gson.Gson;
 @RequestMapping(value="/")
 public class GoogleOAuthController {
 
-	private static final String CLIENT_ID = "1014116704783-61uvavv1iilnkku8eustke5hml2jmr7i.apps.googleusercontent.com";
-	private static final String CLIENT_SECRET = "o37usQ_AoEEo7JmgvwfEHJcF";
+	private static final String CLIENT_ID = "1014116704783-61uvsdbhvsdku8eustke5hml2jmr7i.apps.googleusercontent.com";
+	private static final String CLIENT_SECRET = "o37usQ_AWjhbw7JmgvwfEHJcF";
 	private static final String CALLBACK_URI = "http://localhost:8080/GoogleOAuth/getBackUrl";
 
 	private static final Iterable<String> SCOPE = Arrays.asList("https://www.googleapis.com/auth/userinfo.profile;https://www.googleapis.com/auth/userinfo.email".split(";"));
