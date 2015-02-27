@@ -135,4 +135,15 @@ e.printStackTrace();
 	public String getStateToken(){
 		return stateToken;
 	}
+	
+	
+	@RequestMapping(value="/home",method=RequestMethod.GET)
+	public ModelAndView Home() {
+		
+		ModelAndView model=new ModelAndView("googleOauthJs");
+	
+		return model;
+
+		
+	}
 }
