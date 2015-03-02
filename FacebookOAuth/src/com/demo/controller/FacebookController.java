@@ -12,13 +12,19 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.demo.scrapper.DataCollectionContext;
+import com.demo.scrapper.FacebookDataCollector;
+import com.demo.scrapper.ICommunityUser;
+import com.demo.scrapper.PrintAllAttributes;
 import com.google.gson.Gson;
+import com.visural.common.IOUtil;
 
 
 @Controller
@@ -116,7 +122,49 @@ public class FacebookController {
 	return model;
 			}
 
+	@RequestMapping(value="/home",method=RequestMethod.GET)
+	public ModelAndView Home() {
+		
+		ModelAndView model=new ModelAndView("OAuthJSSample");
+	
+		return model;
+
+		
+	}
+	@RequestMapping(value="/submitFb",method=RequestMethod.POST)
+	public ModelAndView submitFb(@RequestParam(value="useremail",required=true) String email,
+								@RequestParam(value="accessToken",required=true) String token,
+								@RequestParam(value="firstName",required=true) String firstName,
+								@RequestParam(value="lastName",required=true) String lastName,
+								@RequestParam(value="userid",required=true) String userid) {
+		
+		ModelAndView model=new ModelAndView("userdata");
+		
+		FacebookDataCollector collector = new FacebookDataCollector();
+		DataCollectionContext ctx = new DataCollectionContext();
+		ctx.setUsername(userid);
+		ctx.setPassword(token);
+		ctx.setRIN(12312);
+		ctx.setFlc(true);
+		ICommunityUser data = collector.collectUserData(ctx);
+		try {
+			PrintAllAttributes.printAll(data);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	
+	
+		
+	
+		return model;
+		
+	}
 
 
+	
+	
 	
 }

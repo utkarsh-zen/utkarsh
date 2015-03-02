@@ -16,14 +16,22 @@
   <body>
       <h1>Connect JavaScript - jQuery Login Example</h1>
       <div>
-          <button id="login" class="fbButton">Login</button>
+          <button id="login" >Login</button>
           <button id="logout">Logout</button>
           <button id="disconnect">Disconnect</button>
       </div>
-      <div id="user-info" >hello</div>
+      <div id="user-info" ></div>
       <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js">
     </script>
   <div id="fb-root"></div>
+  <form name="fbsubmitform" action="${pageContext.servletContext.contextPath}/submitFb" method="post">
+  <input type="hidden" name="useremail" id="useremailid">
+  <input type="hidden" name="accessToken" id="accessTokenId">
+  <input type="hidden" name="firstName" id="firstNameId">
+  <input type="hidden" name="lastName" id="lastNameId">
+  <input type="hidden" name="userid" id="userid">
+  
+  </form>
   </body>
   </html>
   <script src="http://connect.facebook.net/en_US/all.js"></script>
@@ -41,11 +49,20 @@
     	  FB.login(function(response) {
 	   		   if (response.authResponse) {
 	   			 var accessToken = response.authResponse.accessToken;
-	   		     FB.api('/me', function(response) {
+	   		     FB.api('/v2.2/me', function(response) {
 	   		    	var userid = response.id;
 	   	          	var fname = response.first_name;
 	   	          	var lname = response.last_name;
-	   	          	console.log(accessToken+" "+userid+" "+fname+" "+lname);
+	   	         	var email = response.email;
+	   	         console.log(response);
+	   	         $('#useremailid').val(email);
+	   	      $('#accessTokenId').val(accessToken);
+	   	   $('#firstNameId').val(fname);
+	   	$('#lastNameId').val(lname);
+	 	$('#userid').val(userid);
+	   	
+	   	        document.fbsubmitform.submit();
+	   	          	console.log(email+" "+userid+" "+fname+" "+lname);
 	   			});
 	   		} else {
 	   			console.log('User cancelled login or did not fully authorize.');
